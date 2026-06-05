@@ -4,9 +4,9 @@ Personal educational project for exploring the anatomy and workflow of an open t
 
 The app is interactive: users select instruments, inspect anatomy, follow staged objectives, and receive feedback when actions are attempted in the wrong order or near protected structures. The visual model includes the thyroid lobes and isthmus, thyroid nodule, trachea, strap muscles, parathyroid glands, superior and inferior thyroid vessels, recurrent laryngeal nerve, external branch of the superior laryngeal nerve, carotid sheath, and central neck lymph node packets.
 
-## Versions
+## Files
 
-English version:
+The simulation uses one shared bilingual app with an in-page language switch:
 
 ```text
 index.html
@@ -14,33 +14,29 @@ app.js
 styles.css
 ```
 
-Chinese version:
+Keep these three files in the same folder. `index.html` loads the shared bilingual JavaScript file and stylesheet. There is no separate Chinese HTML or JavaScript file in this optimized version.
+
+## Language Switching
+
+Open `index.html` for the default English interface. Use the language button in the top bar to switch between English and Chinese. Switching language happens in place: it does not restart the case, reset scores, move you back to step 1, or undo completed actions. The current objective, tool panel, checklist, anatomy labels, feedback log, and completion screen all relabel immediately.
+
+The switch stores the selected language in the browser when possible. It may update the address bar to include `?lang=zh`, but the simulation state stays active. Chinese can also be opened directly with:
 
 ```text
-index.zh.html
-app.zh.js
-styles.css
+index.html?lang=zh
 ```
-
-Keep the HTML, JavaScript, and CSS files in the same folder. The HTML files depend on the matching JavaScript file and the shared stylesheet.
 
 ## How To Run
 
 ### Option 1: Open Directly
 
-After downloading the project, extract the ZIP first. Then open one of these files in a modern browser:
+After downloading the project, extract the ZIP first. Then open this file in a modern browser:
 
 ```text
 index.html
 ```
 
-or:
-
-```text
-index.zh.html
-```
-
-Do not open `app.js` or `app.zh.js` directly. Those files are loaded by the HTML page.
+Do not open `app.js` directly. That file is loaded by the HTML page.
 
 ### Option 2: Run With A Local Server
 
@@ -58,10 +54,10 @@ Then open:
 http://localhost:4173/index.html
 ```
 
-or:
+For Chinese directly:
 
 ```text
-http://localhost:4173/index.zh.html
+http://localhost:4173/index.html?lang=zh
 ```
 
 On some Windows systems, the command may be:
@@ -78,7 +74,7 @@ Check that:
 
 - The ZIP has been extracted.
 - `index.html`, `app.js`, and `styles.css` are in the same folder.
-- For Chinese, `index.zh.html`, `app.zh.js`, and `styles.css` are in the same folder.
+- You are opening `index.html`, not looking for `index.zh.html` or opening `app.js` directly.
 - The files were not renamed to `app.js.txt` or `styles.css.txt`.
 - The page is opened in Chrome, Edge, Firefox, or Safari.
 
