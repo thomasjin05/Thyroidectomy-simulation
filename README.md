@@ -4,6 +4,20 @@ This project explores the anatomy and workflow of an open thyroidectomy. The sim
 
 The app is interactive: users select instruments, inspect anatomy, follow staged objectives, and receive feedback when actions are attempted in the wrong order or near protected structures. The visual model includes the thyroid lobes and isthmus, thyroid nodule, trachea, strap muscles, parathyroid glands, superior and inferior thyroid vessels, recurrent laryngeal nerve, external branch of the superior laryngeal nerve, carotid sheath, and central neck lymph node packets.
 
+## Educational Scope
+
+This simulator is a simplified teaching model. It is meant to help visualize major anatomy and the logic of a thyroidectomy workflow, including:
+
+- Layered exposure through skin, subplatysmal flaps, and strap muscle separation.
+- Identification and protection of the recurrent laryngeal nerve.
+- Identification and preservation of parathyroid glands and their blood supply.
+- Careful control of superior and inferior thyroid vessels.
+- Use of modern energy instruments in selected steps.
+- Central compartment lymph node packet mobilization and clearance in a teaching case.
+- Final hemostasis and closure.
+
+The anatomy, positions, proportions, and operative sequence are schematic. Real patients vary substantially in thyroid shape, vessel branching, parathyroid position, lymph node disease, nerve branching, and surgical approach.
+
 ## Files
 
 The simulation uses one shared bilingual app with an in-page language switch:
@@ -79,20 +93,6 @@ Check that:
 - The page is opened in Chrome, Edge, Firefox, or Safari.
 
 If a Windows error such as `800A03EA` appears, Windows is trying to execute the JavaScript file directly with Windows Script Host. Open the HTML file instead.
-
-## Educational Scope
-
-This simulator is a simplified teaching model. It is meant to help visualize major anatomy and the logic of a thyroidectomy workflow, including:
-
-- Layered exposure through skin, subplatysmal flaps, and strap muscle separation.
-- Identification and protection of the recurrent laryngeal nerve.
-- Identification and preservation of parathyroid glands and their blood supply.
-- Careful control of superior and inferior thyroid vessels.
-- Use of modern energy instruments in selected steps.
-- Central compartment lymph node packet mobilization and clearance in a teaching case.
-- Final hemostasis and closure.
-
-The anatomy, positions, proportions, and operative sequence are schematic. Real patients vary substantially in thyroid shape, vessel branching, parathyroid position, lymph node disease, nerve branching, and surgical approach.
 
 ## Disclaimers
 
