@@ -12,7 +12,7 @@ This simulator is a simplified teaching model. It is meant to help visualize maj
 - Identification and protection of the recurrent laryngeal nerve.
 - Identification and preservation of parathyroid glands and their blood supply.
 - Careful control of superior and inferior thyroid vessels.
-- Use of modern energy instruments in selected steps.
+- Use of modern energy instruments, such as ultrasonic scalpels and electrocautery, in selected steps.
 - Central compartment lymph node packet mobilization and clearance in a teaching case.
 - Final hemostasis and closure.
 
