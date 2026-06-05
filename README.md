@@ -104,7 +104,7 @@ The simulator intentionally simplifies anatomy and technique. Some details are a
 
 ## Project Attribution
 
-This project was built with assistance from OpenAI Codex. Codex helped generate and revise the simulator code, interface text, Chinese localization, troubleshooting notes, and README content. Final review, project intent, and use remain the responsibility of the project owner. The app javascript and css file on this repository is the minified for deployment optimization. For full code, please contact the developer. 
+This project was built with assistance from OpenAI Codex. Codex helped generate and revise the simulator code, interface text, and Chinese localization. Final review, project intent, and use remain the responsibility of the project owner. The app javascript and CSS file on this repository is minified for deployment optimization. For the full editable code, please contact the developer. 
 
 ## Evidence Sources
 
