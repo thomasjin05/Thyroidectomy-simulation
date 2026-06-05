@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thyroidectomy Surgery Simulator</title>
+    <link rel="stylesheet" href="styles.css?v=sources-20260605">
+  </head>
+  <body>
+    <main class="app">
+      <section class="topbar" aria-label="Simulation status">
+        <div class="brand-block">
+          <p class="eyebrow">Educational anatomy simulator</p>
+          <h1>Thyroidectomy Surgery Simulator</h1>
+        </div>
+        <div class="status-strip">
+          <div>
+            <span class="stat-label">Stage</span>
+            <strong id="stageNumber">1 / 8</strong>
+          </div>
+          <div>
+            <span class="stat-label">Safety</span>
+            <strong id="safetyScore">100</strong>
+          </div>
+          <div>
+            <span class="stat-label">Hemostasis</span>
+            <strong id="hemostasisScore">Stable</strong>
+          </div>
+        </div>
+        <button id="langToggle" class="ghost-button language-button" type="button">中文</button>
+        <div class="watermark" aria-label="Creator watermark">@thomasjin05</div>
+      </section>
+
+      <section class="workspace">
+        <aside class="panel tools-panel" aria-label="Surgical instruments">
+          <div class="panel-head">
+            <h2>Tools</h2>
+            <button id="resetButton" class="ghost-button" type="button">Reset</button>
+          </div>
+          <div id="toolGrid" class="tool-grid"></div>
+
+          <div class="instrument-panel" aria-live="polite">
+            <div class="instrument-head">
+              <div>
+                <p class="eyebrow">Selected instrument</p>
+                <h2 id="instrumentTitle"></h2>
+              </div>
+              <span id="instrumentBadge" class="instrument-badge"></span>
+            </div>
+            <p id="instrumentTechnique" class="instrument-technique"></p>
+          </div>
+
+          <div class="case-card">
+            <h2>Case</h2>
+            <p>Open right thyroid cancer teaching case with suspicious ipsilateral central-compartment lymph nodes. Complete a careful lobectomy and level VI node clearance while preserving parathyroid and recurrent laryngeal nerve function.</p>
+          </div>
+
+          <div class="legend">
+            <h2>Anatomy Legend</h2>
+            <div><span class="swatch thyroid"></span>Thyroid tissue and nodule</div>
+            <div><span class="swatch trachea"></span>Trachea</div>
+            <div><span class="swatch lymph"></span>Central compartment node packets</div>
+            <div><span class="swatch parathyroid"></span>Parathyroid glands</div>
+            <div><span class="swatch nerve"></span>Recurrent laryngeal nerve</div>
+            <div><span class="swatch sln"></span>External branch of superior laryngeal nerve</div>
+            <div><span class="swatch artery"></span>Arteries</div>
+            <div><span class="swatch vein"></span>Veins</div>
+            <div><span class="swatch landmark"></span>Key landmarks</div>
+          </div>
+        </aside>
+
+        <section class="sim-column">
+          <div class="stage-card" aria-live="polite">
+            <div>
+              <p class="eyebrow">Current objective</p>
+              <h2 id="stageTitle"></h2>
+            </div>
+            <p id="stageInstruction"></p>
+          </div>
+
+          <div class="canvas-shell">
+            <canvas id="simCanvas" width="1080" height="720" aria-label="Interactive thyroidectomy anatomy simulation"></canvas>
+            <div id="tooltip" class="tooltip" hidden></div>
+            <section id="completionScreen" class="completion-screen" aria-live="polite" hidden>
+              <div class="completion-panel">
+                <p class="eyebrow">Case complete</p>
+                <h2>Surgery Simulation Finished</h2>
+                <p>Right lobectomy, ipsilateral central compartment node clearance, hemostasis check, and layered closure are complete.</p>
+                <div class="completion-stats" aria-label="Final simulation status">
+                  <div>
+                    <span class="stat-label">Final safety</span>
+                    <strong id="completionSafety"></strong>
+                  </div>
+                  <div>
+                    <span class="stat-label">Hemostasis</span>
+                    <strong id="completionHemostasis"></strong>
+                  </div>
+                </div>
+                <button id="restartButton" class="restart-button" type="button">Restart</button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <aside class="panel feedback-panel" aria-label="Feedback and anatomy notes">
+          <h2>Feedback</h2>
+          <div id="feedbackLog" class="feedback-log"></div>
+
+          <h2>Procedure Checklist</h2>
+          <ol id="checklist" class="checklist"></ol>
+
+          <div class="note">
+            This is a detailed educational schematic. Real thyroid anatomy varies by patient, including parathyroid position, recurrent laryngeal nerve branching, vessel-nerve relationships, and lymph node disease extent. Central compartment dissection depends on indication. This simulation is not surgical training, clinical advice, or a patient-care guide.
+          </div>
+
+          <section class="sources-card" aria-label="Evidence sources">
+            <h2>Sources</h2>
+            <ol class="sources-list">
+              <li><a href="https://www.ncbi.nlm.nih.gov/sites/books/NBK563279/" target="_blank" rel="noopener noreferrer">NCBI Bookshelf, StatPearls: Thyroidectomy</a></li>
+              <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK470452/" target="_blank" rel="noopener noreferrer">NCBI Bookshelf, StatPearls: Anatomy, Head and Neck, Thyroid</a></li>
+              <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK285564/" target="_blank" rel="noopener noreferrer">NCBI Bookshelf, Endotext: Surgery of the Thyroid</a></li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4739132/" target="_blank" rel="noopener noreferrer">2015 American Thyroid Association Management Guidelines for Adult Patients with Thyroid Nodules and Differentiated Thyroid Cancer</a></li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9742273/" target="_blank" rel="noopener noreferrer">Surgical tips and techniques to avoid complications of thyroid surgery</a></li>
+              <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7315061/" target="_blank" rel="noopener noreferrer">A Review of Methods for the Preservation of Laryngeal Nerves During Thyroidectomy</a></li>
+            </ol>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script src="app.js?v=feedback-i18n-20260605"></script>
+  </body>
+</html>
