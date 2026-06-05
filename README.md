@@ -1,6 +1,6 @@
 # Thyroidectomy Surgery Simulator
 
-Personal educational project for exploring the anatomy and workflow of an open thyroidectomy. The simulator shows a simplified right thyroid lobectomy case with a suspicious thyroid nodule and ipsilateral central compartment lymph node clearance.
+This project explores the anatomy and workflow of an open thyroidectomy. The simulator shows a simplified right thyroid lobectomy case with a suspicious thyroid nodule and ipsilateral central compartment lymph node clearance. The simulation is availible in English and Mandarin Chinese. 
 
 The app is interactive: users select instruments, inspect anatomy, follow staged objectives, and receive feedback when actions are attempted in the wrong order or near protected structures. The visual model includes the thyroid lobes and isthmus, thyroid nodule, trachea, strap muscles, parathyroid glands, superior and inferior thyroid vessels, recurrent laryngeal nerve, external branch of the superior laryngeal nerve, carotid sheath, and central neck lymph node packets.
 
@@ -15,16 +15,6 @@ styles.css
 ```
 
 Keep these three files in the same folder. `index.html` loads the shared bilingual JavaScript file and stylesheet. There is no separate Chinese HTML or JavaScript file in this optimized version.
-
-## Language Switching
-
-Open `index.html` for the default English interface. Use the language button in the top bar to switch between English and Chinese. Switching language happens in place: it does not restart the case, reset scores, move you back to step 1, or undo completed actions. The current objective, tool panel, checklist, anatomy labels, feedback log, and completion screen all relabel immediately.
-
-The switch stores the selected language in the browser when possible. It may update the address bar to include `?lang=zh`, but the simulation state stays active. Chinese can also be opened directly with:
-
-```text
-index.html?lang=zh
-```
 
 ## How To Run
 
@@ -66,6 +56,16 @@ On some Windows systems, the command may be:
 py -m http.server 4173
 ```
 
+## Language Switching
+
+Open `index.html` for the default English interface. Use the language button in the top bar to switch between English and Chinese. Switching language happens in place: it does not restart the case, reset scores, move you back to step 1, or undo completed actions. The current objective, tool panel, checklist, anatomy labels, feedback log, and completion screen all relabel immediately.
+
+The switch stores the selected language in the browser when possible. It may update the address bar to include `?lang=zh`, but the simulation state stays active. Chinese can also be opened directly with:
+
+```text
+index.html?lang=zh
+```
+
 ## Common Download Issues
 
 If the simulation shows only labels or unstyled text, the browser probably cannot load `styles.css` or the JavaScript file.
@@ -104,7 +104,7 @@ The simulator intentionally simplifies anatomy and technique. Some details are a
 
 ## Project Attribution
 
-This personal project was built with assistance from OpenAI Codex. Codex helped generate and revise the simulator code, interface text, Chinese localization, troubleshooting notes, and README content. Final review, project intent, and use remain the responsibility of the project owner.
+This project was built with assistance from OpenAI Codex. Codex helped generate and revise the simulator code, interface text, Chinese localization, troubleshooting notes, and README content. Final review, project intent, and use remain the responsibility of the project owner.
 
 ## Evidence Sources
 
