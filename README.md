@@ -1,9 +1,10 @@
 # Thyroidectomy Surgery Simulator
-Simulation available at: https://thomasjin05.github.io/Thyroidectomy-simulation/ 
+Simulation available online at: https://thomasjin05.github.io/Thyroidectomy-simulation/ 
+No installation needed. Local installation is also possible per instructions below. 
 
-This project explores the anatomy and workflow of an open thyroidectomy. The simulator shows a simplified right thyroid lobectomy case with a suspicious thyroid nodule and ipsilateral central compartment lymph node clearance. The simulation is availible in English and Mandarin Chinese. 
+This project explores the anatomy and workflow of an open thyroidectomy. The simulator shows a simplified right thyroid lobectomy case with a suspicious thyroid nodule and ipsilateral central compartment lymph node clearance. The simulation is available in English and Mandarin Chinese. 
 
-The app is interactive: users select instruments, inspect anatomy, follow staged objectives, and receive feedback when actions are attempted in the wrong order or near protected structures. The visual model includes the thyroid lobes and isthmus, thyroid nodule, trachea, strap muscles, parathyroid glands, superior and inferior thyroid vessels, recurrent laryngeal nerve, external branch of the superior laryngeal nerve, carotid sheath, and central neck lymph node packets.
+The simulation is interactive: users select instruments, inspect anatomy, follow staged objectives, and receive feedback when actions are attempted in the wrong order or near protected structures. The visual model includes the thyroid lobes and isthmus, thyroid nodule, trachea, strap muscles, parathyroid glands, superior and inferior thyroid vessels, recurrent laryngeal nerve, external branch of the superior laryngeal nerve, carotid sheath, and central neck lymph node packets.
 
 ## Educational Scope
 
@@ -33,8 +34,9 @@ Keep these three files in the same folder. `index.html` loads the shared bilingu
 
 ## How To Run
 
-### Option 1: Open Directly
+The simulation is available online with no installation needed: https://thomasjin05.github.io/Thyroidectomy-simulation/ 
 
+### Option 1: Run locally
 After downloading the project, extract the ZIP first. Then open this file in a modern browser:
 
 ```text
