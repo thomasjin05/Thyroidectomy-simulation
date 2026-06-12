@@ -1,5 +1,5 @@
 # Thyroidectomy Surgery Simulator
-
+Simulation available at: https://thomasjin05.github.io/Thyroidectomy-simulation/ 
 This project explores the anatomy and workflow of an open thyroidectomy. The simulator shows a simplified right thyroid lobectomy case with a suspicious thyroid nodule and ipsilateral central compartment lymph node clearance. The simulation is availible in English and Mandarin Chinese. 
 
 The app is interactive: users select instruments, inspect anatomy, follow staged objectives, and receive feedback when actions are attempted in the wrong order or near protected structures. The visual model includes the thyroid lobes and isthmus, thyroid nodule, trachea, strap muscles, parathyroid glands, superior and inferior thyroid vessels, recurrent laryngeal nerve, external branch of the superior laryngeal nerve, carotid sheath, and central neck lymph node packets.
