@@ -1,11 +1,10 @@
 # Thyroidectomy Surgery Simulator
-Simulation available online at: https://thomasjin05.github.io/Thyroidectomy-simulation/ 
 
-No installation needed. Running the simulation locally is also possible per instructions below. 
+Simulation available online at: https://thomasjin05.github.io/Thyroidectomy-simulation/
 
 This project explores the anatomy and workflow of an open thyroidectomy. The simulator shows a simplified right thyroid lobectomy case with a suspicious thyroid nodule and ipsilateral central compartment lymph node clearance. The simulation is available in English and Mandarin Chinese. 
 
-The simulation is interactive: users select instruments, inspect anatomy, follow staged objectives, and receive feedback when actions are attempted in the wrong order or near protected structures. The visual model includes the thyroid lobes and isthmus, thyroid nodule, trachea, strap muscles, parathyroid glands, superior and inferior thyroid vessels, recurrent laryngeal nerve, external branch of the superior laryngeal nerve, carotid sheath, and central neck lymph node packets.
+The app is interactive: users select instruments, inspect anatomy, follow staged objectives, and receive feedback when actions are attempted in the wrong order or near protected structures. The visual model includes the thyroid lobes and isthmus, thyroid nodule, trachea, strap muscles, parathyroid glands, superior and inferior thyroid vessels, recurrent laryngeal nerve, external branch of the superior laryngeal nerve, carotid sheath, and central neck lymph node packets.
 
 ## Educational Scope
 
@@ -13,6 +12,7 @@ This simulator is a simplified teaching model. It is meant to help visualize maj
 
 - Layered exposure through skin, subplatysmal flaps, and strap muscle separation.
 - Identification and protection of the recurrent laryngeal nerve.
+- Nanocarbon contrast step before parathyroid dissection, modeled as a simplified teaching view of carbon nanoparticle contrast.
 - Identification and preservation of parathyroid glands and their blood supply.
 - Careful control of superior and inferior thyroid vessels.
 - Use of modern energy instruments, such as ultrasonic scalpels and electrocautery, in selected steps.
@@ -35,9 +35,8 @@ Keep these three files in the same folder. `index.html` loads the shared bilingu
 
 ## How To Run
 
-The simulation is available online with no installation needed: https://thomasjin05.github.io/Thyroidectomy-simulation/ 
+### Option 1: Open Directly
 
-### Option 1: Run Locally
 After downloading the project, extract the ZIP first. Then open this file in a modern browser:
 
 ```text
@@ -108,7 +107,7 @@ The simulator intentionally simplifies anatomy and technique. Some details are a
 
 ## Project Attribution
 
-This project was built with assistance from OpenAI Codex. Codex helped generate and revise the simulator code, interface text, and Chinese localization. Final review, project intent, and use remain the responsibility of the project owner. The app javascript and CSS file on this repository is minified for deployment optimization. For the full editable code, please contact the developer. 
+This project was built with assistance from OpenAI Codex. Codex helped generate and revise the simulator code, interface text, Chinese localization, troubleshooting notes, and README content. Final review, project intent, and use remain the responsibility of the project owner. The GitHub Pages version uses minified JavaScript and CSS for deployment; the full editable source is kept separately.
 
 ## Evidence Sources
 
@@ -120,5 +119,6 @@ The educational content was informed by open medical references and guideline li
 - American Thyroid Association guideline article on differentiated thyroid cancer: [2015 ATA Management Guidelines](https://pmc.ncbi.nlm.nih.gov/articles/PMC4739132/)
 - Review article on complication avoidance in thyroid surgery: [Surgical tips and techniques to avoid complications of thyroid surgery](https://pmc.ncbi.nlm.nih.gov/articles/PMC9742273/)
 - Review article on laryngeal nerve preservation: [A Review of Methods for the Preservation of Laryngeal Nerves During Thyroidectomy](https://pmc.ncbi.nlm.nih.gov/articles/PMC7315061/)
+- Meta-analysis on carbon nanoparticles in thyroid cancer surgery: [A Meta-analysis of Carbon Nanoparticles for Identifying Lymph Nodes and Protecting Parathyroid Glands during Surgery](https://pubmed.ncbi.nlm.nih.gov/25897006/)
 
-These sources support the general educational themes: recurrent laryngeal nerve risk, superior laryngeal nerve risk near the superior pole, parathyroid preservation, vessel control, thyroid bed hemostasis, and central compartment considerations. They do not certify this simulator as anatomically complete or clinically accurate.
+These sources support the general educational themes: recurrent laryngeal nerve risk, superior laryngeal nerve risk near the superior pole, carbon nanoparticle contrast as an adjunct for lymph node identification/parathyroid protection, parathyroid preservation, vessel control, thyroid bed hemostasis, and central compartment considerations. They do not certify this simulator as anatomically complete or clinically accurate.
