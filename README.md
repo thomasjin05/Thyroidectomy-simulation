@@ -47,7 +47,7 @@ Do not open `app.js` directly. That file is loaded by the HTML page.
 
 ### Option 2: Run With A Local Server
 
-If the page opens as plain text, the canvas does not animate, or a company laptop blocks local scripts, run a local server from the project folder.
+If the page opens as plain text, the canvas does not animate, or your computer blocks local scripts, run a local server from the project folder.
 
 Python:
 
@@ -107,7 +107,7 @@ The simulator intentionally simplifies anatomy and technique. Some details are a
 
 ## Project Attribution
 
-This project was built with assistance from OpenAI Codex. Codex helped generate and revise the simulator code, interface text, Chinese localization, troubleshooting notes, and README content. Final review, project intent, and use remain the responsibility of the project owner. The GitHub Pages version uses minified JavaScript and CSS for deployment; the full editable source is kept separately.
+This project was built with assistance from OpenAI Codex. Final review, project intent, and use remain the responsibility of the project owner. The GitHub Pages version uses minified JavaScript and CSS for deployment; the full editable source is kept separately.
 
 ## Evidence Sources
 
