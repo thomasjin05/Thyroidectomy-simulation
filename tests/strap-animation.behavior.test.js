@@ -243,13 +243,12 @@ assert(source.includes("const isIncision=zone.id===\"incision\""), "monopolar sh
 assert(source.includes("(linear-0.32)/0.68"), "monopolar cutting should wait until after its approach phase");
 assert(source.includes("const mobilized=state.completed.has(id)"), "parathyroids should track dissector mobilization separately");
 const parathyroidRenderer = source.slice(source.indexOf("function parathyroid"), source.indexOf("function drawVessel"));
-assert(parathyroidRenderer.includes('ctx.fillStyle="#f0d85a"'), "parathyroids should remain solid yellow throughout");
-assert(!parathyroidRenderer.includes("#c94b4b"), "mobilized parathyroids should not develop a red center");
-assert(parathyroidRenderer.includes("if(mobilized){"), "mobilized parathyroids should receive a persistent highlight");
+assert(parathyroidRenderer.includes('):"#f0d85a"'), "unmobilized parathyroids should render yellow");
+assert(parathyroidRenderer.includes("#c94b4b"), "mobilized parathyroids should develop a red center");
 const highlightRenderer = source.slice(source.indexOf("function drawHighlights"), source.indexOf("function drawTeachingOverlay"));
-assert(highlightRenderer.includes('zone.type!=="parathyroid"||state.completed.has(zone.id)'), "unmobilized parathyroids should not receive a target highlight");
-assert(!source.includes("parathyroid glands stand out in red"), "English nanocarbon guidance should describe yellow parathyroids");
-assert(!source.includes("甲状旁腺以红色对比显示"), "Chinese nanocarbon guidance should describe yellow parathyroids");
+assert(highlightRenderer.includes("zones.filter((zone)=>ids.includes(zone.id)).forEach"), "parathyroid target guides should remain visible before dissection");
+assert(source.includes("parathyroid glands stand out in red"), "English nanocarbon guidance should describe the red contrast");
+assert(source.includes("甲状旁腺以红色对比显示"), "Chinese nanocarbon guidance should describe the red contrast");
 assert(source.includes("Math.sin(progress*Math.PI*2)*0.16"), "blunt dissection should use a controlled, limited twist");
 assert(source.includes("if(activation>0&&!harmonic)"), "HARMONIC activation should not render electrical sparks");
 assert(source.includes("function drawBluntSeparation"), "blunt dissection should animate tissue separation without guide lines");
