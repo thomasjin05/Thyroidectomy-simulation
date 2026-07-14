@@ -107,7 +107,7 @@ The simulator intentionally simplifies anatomy and technique. Some details are a
 
 ## Project Attribution
 
-This project was built with assistance from OpenAI Codex. Final review, project intent, and use remain the responsibility of the project owner. The GitHub Pages version uses minified JavaScript and CSS for deployment; the full editable source is kept separately.
+This project was built with assistance from OpenAI Codex. Final review, project intent, and use remain the responsibility of the project owner. GitHub Pages serves the same full editable source kept in this repository.
 
 ## Evidence Sources
 
