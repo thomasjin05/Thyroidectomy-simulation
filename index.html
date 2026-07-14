@@ -41,6 +41,7 @@
 
           <div class="instrument-panel" aria-live="polite">
             <div class="instrument-head">
+              <img id="instrumentImage" class="instrument-image" alt="" width="92" height="92">
               <div>
                 <p class="eyebrow">Selected instrument</p>
                 <h2 id="instrumentTitle"></h2>
@@ -105,7 +106,7 @@
 
         <aside class="panel feedback-panel" aria-label="Feedback and anatomy notes">
           <h2>Feedback</h2>
-          <div id="feedbackLog" class="feedback-log"></div>
+          <div id="feedbackLog" class="feedback-log" aria-live="polite" aria-atomic="false"></div>
 
           <h2>Procedure Checklist</h2>
           <ol id="checklist" class="checklist"></ol>
