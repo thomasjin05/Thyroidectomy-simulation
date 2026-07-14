@@ -132,6 +132,41 @@ const protectedHits = vm.runInContext(`(() => {
 assert.equal(protectedHits.nerve, "rightRLN", "a broad strap target must not mask the RLN");
 assert.equal(protectedHits.parathyroid, "rightParaSup", "the thyroid target must not mask a parathyroid");
 
+const intendedHits = vm.runInContext(`(() => {
+  resetSimulation();
+  state.tool = "harmonic";
+  state.stage = 2;
+  const strap = hitZone({ x: 540, y: 330 }).id;
+  state.stage = 3;
+  const middleVein = hitZone({ x: 742, y: 340 }).id;
+  state.stage = 10;
+  const isthmus = hitZone({ x: 548, y: 350 }).id;
+  state.tool = "dissector";
+  state.stage = 12;
+  const nodeMobilization = hitZone({ x: 548, y: 474 }).id;
+  state.tool = "advancedBipolar";
+  state.stage = 13;
+  const nodeClearance = hitZone({ x: 548, y: 474 }).id;
+  return { strap, middleVein, isthmus, nodeMobilization, nodeClearance };
+})()`, sandbox);
+assert.deepEqual(intendedHits, {
+  strap: "strapWindow",
+  middleVein: "rightMidVein",
+  isthmus: "isthmus",
+  nodeMobilization: "pretrachealNodes",
+  nodeClearance: "pretrachealNodes"
+}, "the current step's intended target should win over overlapping trachea or nerve zones");
+
+const focusStepClick = vm.runInContext(`(() => {
+  resetSimulation();
+  state.stage = 3;
+  state.tool = "harmonic";
+  const point = { x: 742, y: 340 };
+  onAction(hitZone(point), point);
+  return { safety: state.safety, targetId: state.action?.targetId };
+})()`, sandbox);
+assert.deepEqual(focusStepClick, { safety: 100, targetId: "rightMidVein" }, "the Step 4 Focus target should start vessel sealing without a nerve penalty");
+
 const dissectorNerveContact = vm.runInContext(`(() => {
   resetSimulation();
   state.stage = 9;

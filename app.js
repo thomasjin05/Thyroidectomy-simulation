@@ -2029,10 +2029,12 @@ function hitZone(point){
     return contains(zone, point.x, point.y);
   });
   if(state.tool!=="inspect"){
-    const protectedMatch=matches.find((zone)=>zone.type==="parathyroid")||matches.find((zone)=>zone.type==="nerve")||matches.find((zone)=>zone.type==="critical");
-    if(protectedMatch)return protectedMatch;
     const currentTargets=targetZoneIds();
     const currentMatch=matches.find((zone)=>currentTargets.includes(zone.id));
+    const broadCurrent=currentMatch&&["strapWindow", "rightThyroid", "nodule"].includes(currentMatch.id);
+    if(currentMatch&&!broadCurrent)return currentMatch;
+    const protectedMatch=matches.find((zone)=>zone.type==="parathyroid")||matches.find((zone)=>zone.type==="nerve");
+    if(protectedMatch)return protectedMatch;
     if(currentMatch)return currentMatch;
   }
   return matches[
