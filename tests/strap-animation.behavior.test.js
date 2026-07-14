@@ -212,10 +212,44 @@ assert(html.includes('aria-keyshortcuts="Enter Space"'), "the canvas should expo
 assert(/id="feedbackLog"[^>]*aria-live="polite"/.test(html), "procedure feedback should be announced to assistive technology");
 assert(html.includes('id="instrumentImage"'), "the selected instrument should expose a local product image");
 assert(!html.includes('id="instrumentSource"'), "the selected instrument should not expose source provenance text");
-assert(source.includes("const toolPhoto="), "the selected instrument should support supplied product photos");
-assert(source.includes('id==="inspect"?"assets/instruments/inspect.svg"'), "Observe should use a magnifying-glass sprite");
-assert(source.includes("drawInstrumentSprite(state.tool"), "the cursor should use the selected instrument image sprite");
-assert(source.includes("function drawSeparatedVessel"), "sealed vessels should render as separated segments");
+const photoAssets = vm.runInContext(`({
+  harmonic: toolPhoto("harmonic"),
+  advancedBipolar: toolPhoto("advancedBipolar"),
+  scalpel: toolPhoto("scalpel"),
+  inspect: toolAsset("inspect")
+})`, sandbox);
+assert.deepEqual(photoAssets, {
+  harmonic: "assets/instruments/source/harmonic-focus-supplied.png",
+  advancedBipolar: "assets/instruments/source/ligasure-supplied.png",
+  scalpel: "assets/instruments/scalpel.png",
+  inspect: "assets/instruments/inspect.svg"
+}, "instrument panels and Observe should resolve their intended local product assets");
+
+const cursorSprite = vm.runInContext(`(() => {
+  resetSimulation();
+  state.tool = "harmonic";
+  state.pointer = { x: 540, y: 330 };
+  const original = drawInstrumentSprite;
+  let call = null;
+  drawInstrumentSprite = (...args) => { call = args; };
+  drawToolCursor();
+  drawInstrumentSprite = original;
+  return call ? { tool: call[0], scale: call[3] } : null;
+})()`, sandbox);
+assert.deepEqual(cursorSprite, { tool: "harmonic", scale: 0.42 }, "the cursor should render the selected instrument sprite");
+
+const separatedVessel = vm.runInContext(`(() => {
+  resetSimulation();
+  const original = drawSeparatedVessel;
+  let call = null;
+  drawSeparatedVessel = (...args) => { call = args; };
+  state.vesselsClipped.add("rightMidVein");
+  drawVessel([[0, 0], [20, 0]], "#3c6fc0", "rightMidVein", { pulse: 0, action: null });
+  state.vesselsClipped.delete("rightMidVein");
+  drawSeparatedVessel = original;
+  return call ? { color: call[1], width: call[2], separation: call[3] } : null;
+})()`, sandbox);
+assert.deepEqual(separatedVessel, { color: "#3c6fc0", width: 5, separation: 1 }, "sealed vessels should route through separated-segment rendering");
 const isthmusRenderer = source.slice(source.indexOf("function thyroidIsthmus"), source.indexOf("function thyroidNodule"));
 assert(isthmusRenderer.includes('state.completed.has("isthmus")'), "the divided isthmus should retain a visible physical gap");
 assert(source.includes("function drawSparks"), "energy actions should render a spark effect");
