@@ -123,13 +123,17 @@ const protectedHits = vm.runInContext(`(() => {
   resetSimulation();
   state.stage = 2;
   state.tool = "harmonic";
-  const nerve = hitZone({ x: 620, y: 330 }).id;
+  const coveredNerve = hitZone({ x: 620, y: 330 }).id;
+  state.completed.add("strap");
+  state.stage = 3;
+  const exposedNerve = hitZone({ x: 620, y: 330 }).id;
   state.stage = 5;
   state.tool = "nanocarbon";
   const parathyroid = hitZone({ x: 624, y: 258 }).id;
-  return { nerve, parathyroid };
+  return { coveredNerve, exposedNerve, parathyroid };
 })()`, sandbox);
-assert.equal(protectedHits.nerve, "rightRLN", "a broad strap target must not mask the RLN");
+assert.equal(protectedHits.coveredNerve, "strapWindow", "the covered RLN must not block strap-muscle cutting");
+assert.equal(protectedHits.exposedNerve, "rightRLN", "the RLN should become protected after strap separation");
 assert.equal(protectedHits.parathyroid, "rightParaSup", "the thyroid target must not mask a parathyroid");
 
 const intendedHits = vm.runInContext(`(() => {
@@ -166,6 +170,25 @@ const focusStepClick = vm.runInContext(`(() => {
   return { safety: state.safety, targetId: state.action?.targetId };
 })()`, sandbox);
 assert.deepEqual(focusStepClick, { safety: 100, targetId: "rightMidVein" }, "the Step 4 Focus target should start vessel sealing without a nerve penalty");
+
+const nerveExposureClicks = vm.runInContext(`(() => {
+  const point = { x: 620, y: 330 };
+  resetSimulation();
+  state.stage = 2;
+  state.tool = "harmonic";
+  onAction(hitZone(point), point);
+  const covered = { safety: state.safety, targetId: state.action?.targetId };
+  resetSimulation();
+  state.completed.add("strap");
+  state.stage = 3;
+  state.tool = "harmonic";
+  onAction(hitZone(point), point);
+  return { covered, exposed: { safety: state.safety, targetId: state.action?.targetId || null } };
+})()`, sandbox);
+assert.deepEqual(nerveExposureClicks, {
+  covered: { safety: 100, targetId: "strapWindow" },
+  exposed: { safety: 86, targetId: null }
+}, "RLN safety should begin only after the strap muscles expose it");
 
 const dissectorNerveContact = vm.runInContext(`(() => {
   resetSimulation();

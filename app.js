@@ -2026,6 +2026,7 @@ function hitZone(point){
     ...zones
   ].reverse().filter((zone)=>{
     if(state.removed&&(zone.id==="rightThyroid"||zone.id==="nodule"))return false;
+    if(zone.type==="nerve"&&!state.completed.has("strap"))return false;
     return contains(zone, point.x, point.y);
   });
   if(state.tool!=="inspect"){
