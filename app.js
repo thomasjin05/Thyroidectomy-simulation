@@ -2343,6 +2343,7 @@ function penalize(amount, text, extraBleeding=0, source=null){
 let prefersReducedMotion=typeof matchMedia==="function"&&matchMedia("(prefers-reduced-motion: reduce)").matches;
 function actionDuration(tool, zone){
   if(prefersReducedMotion)return 0;
+  if(tool==="advancedBipolar"&&zone?.type==="lymph")return 2500;
   if(["harmonic", "advancedBipolar"].includes(tool)&&["artery", "vein"].includes(zone?.type))return 2500;
   if(["harmonic", "advancedBipolar"].includes(tool)&&["strapWindow", "isthmus"].includes(zone?.id))return 1900;
   return ({
@@ -3407,6 +3408,7 @@ function drawLarynx(bodyY){
   ctx.restore();
 }
 function drawPosteriorThyroidLandmarks(bodyY, motion){
+  if(state.removed)return;
   ctx.save();
   ctx.globalAlpha=0.35+motion.exposure*0.55;
   ctx.fillStyle="#b15d77";
@@ -3581,16 +3583,6 @@ function thyroidIsthmus(x, y, w, h, motion){
   ctx.fillStyle=gradient;
   roundRect(x, y, w, h, 34);
   ctx.fill();
-  ctx.fillStyle="#d17d9a";
-  ctx.beginPath();
-  ctx.moveTo(x+w*0.48, y+10);
-  ctx.quadraticCurveTo(x+w*0.5, y-48, x+w*0.57, y-86);
-  ctx.quadraticCurveTo(x+w*0.63, y-42, x+w*0.59, y+12);
-  ctx.closePath();
-  ctx.fill();
-  ctx.strokeStyle="rgba(95, 43, 62, 0.38)";
-  ctx.lineWidth=2;
-  ctx.stroke();
   ctx.save();
   roundRect(x, y, w, h, 34);
   ctx.clip();

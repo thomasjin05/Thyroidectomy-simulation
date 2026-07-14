@@ -315,12 +315,14 @@ assert.equal(overheadImageDraw[3] / overheadImageDraw[4], 887 / 1774, "Advanced 
 
 const timing = vm.runInContext(`({
   vessel: actionDuration("harmonic", zones.find((item) => item.id === "rightMidVein")),
+  lymph: actionDuration("advancedBipolar", zones.find((item) => item.id === "delphianNodes")),
   muscle: actionDuration("harmonic", zones.find((item) => item.id === "strapWindow")),
   isthmus: actionDuration("advancedBipolar", zones.find((item) => item.id === "isthmus")),
   monopolar: actionDuration("monopolar", zones.find((item) => item.id === "flapPlane")),
   bluntTwist: drawBluntSeparation({x: 540, y: 360}, 0.25)
 })`, sandbox);
 assert.equal(timing.vessel, 2500, "energy should dwell longer at a vessel contact");
+assert.equal(timing.lymph, 2500, "Advanced Bipolar lymph clearance should match vessel-sealing duration");
 assert.equal(timing.muscle, 1900, "muscle energy should use the longer cut duration");
 assert.equal(timing.isthmus, 1900, "isthmus energy should use the longer cut duration");
 assert.equal(timing.monopolar, 1700, "monopolar timing should use the slower duration");
@@ -347,6 +349,16 @@ const forcepsRemoval = vm.runInContext(`(() => {
 assert(forcepsRemoval > 0 && forcepsRemoval < 1, "the real thyroid specimen should move during the forceps action");
 const forcepsRenderer = source.slice(source.indexOf('if(action.tool==="forceps")'), source.indexOf('if(action.tool==="suture")'));
 assert(!forcepsRenderer.includes("ctx.ellipse"), "forceps removal should not draw a duplicate placeholder specimen");
+
+const originalArc = context2d.arc;
+let posteriorLandmarkCircles = 0;
+context2d.arc = () => { posteriorLandmarkCircles += 1; };
+vm.runInContext("state.removed = false; drawPosteriorThyroidLandmarks(0, { exposure: 1 })", sandbox);
+const visiblePosteriorLandmarkCircles = posteriorLandmarkCircles;
+vm.runInContext("state.removed = true; drawPosteriorThyroidLandmarks(0, { exposure: 1 })", sandbox);
+context2d.arc = originalArc;
+assert(visiblePosteriorLandmarkCircles > 0, "the Zuckerkandl landmark should remain visible before specimen removal");
+assert.equal(posteriorLandmarkCircles, visiblePosteriorLandmarkCircles, "posterior thyroid landmarks should disappear with the removed specimen");
 
 const canvas = getElement("simCanvas");
 assert.equal(typeof canvas.listeners.keydown?.[0], "function", "canvas should register a keyboard action handler");
