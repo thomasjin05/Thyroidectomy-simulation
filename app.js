@@ -340,11 +340,11 @@ const TX={
     "Nanocarbon",
     "Apply carbon nanoparticle contrast",
     "Contrast",
-    "Apply nanocarbon to the exposed thyroid tissue/lymphatic field. This teaching model darkens the thyroid/lymphatic field so the parathyroid glands stand out in red before dissection.",
+    "Apply nanocarbon to the exposed thyroid tissue/lymphatic field. This teaching model darkens the thyroid/lymphatic field so the yellow parathyroid glands remain distinct before dissection.",
     "Apply Nanocarbon Contrast",
     "Use Nanocarbon on the exposed right thyroid lobe before dissecting the parathyroids. Real carbon nanoparticles stain lymphatic or thyroid-draining tissue black and help protect parathyroids by contrast.",
     "Carbon nanoparticle contrast helps identify lymph nodes and protect parathyroids by contrast. Do not apply it directly onto a parathyroid gland.",
-    "Nanocarbon applied. The thyroid/lymphatic field now darkens while the parathyroids remain red by contrast.",
+    "Nanocarbon applied. The thyroid/lymphatic field now darkens while the parathyroids remain yellow by contrast.",
     "Do not inject or paint nanocarbon directly onto a parathyroid gland. Apply it to thyroid tissue or the lymphatic field.",
     "Apply nanocarbon contrast before dissecting the parathyroids.",
     "Apply nanocarbon here.",
@@ -654,11 +654,11 @@ const TX={
     "纳米碳",
     "应用碳纳米颗粒示踪",
     "示踪",
-    "把纳米碳用于已显露的甲状腺组织/淋巴引流区域。本教学模型会让甲状腺和淋巴引流区域变暗，让甲状旁腺以红色对比显示，便于分离前辨认。",
+    "把纳米碳用于已显露的甲状腺组织/淋巴引流区域。本教学模型会让甲状腺和淋巴引流区域变暗，让黄色甲状旁腺保持清晰，便于分离前辨认。",
     "应用纳米碳示踪",
     "在分离甲状旁腺前，先用“纳米碳”点击已显露的右侧甲状腺叶。真实手术中，碳纳米颗粒主要使淋巴或甲状腺引流组织变黑，从而通过对比保护甲状旁腺。",
     "碳纳米颗粒可帮助识别淋巴结，并通过对比帮助保护甲状旁腺。不要直接涂在甲状旁腺上。",
-    "纳米碳已应用。甲状腺/淋巴引流区域变暗，甲状旁腺保持红色，形成对比。",
+    "纳米碳已应用。甲状腺/淋巴引流区域变暗，甲状旁腺保持黄色，形成对比。",
     "不要把纳米碳直接注入或涂到甲状旁腺上。应作用于甲状腺组织或淋巴引流区域。",
     "先应用纳米碳示踪，再分离甲状旁腺。",
     "这里应用纳米碳。",
@@ -3724,26 +3724,19 @@ function shade(hex, amount){
 }
 function parathyroid(x, y, motion, id){
   const mobilized=state.completed.has(id);
-  const contrast=state.completed.has("nanocarbon");
   ctx.save();
   ctx.globalAlpha=Math.max(0.18, motion.parathyroidReveal);
-  ctx.fillStyle=mobilized?(contrast?"rgba(255, 235, 235, 0.82)":"rgba(255, 235, 235, 0.72)"):"#f0d85a";
+  if(mobilized){
+    ctx.shadowColor="rgba(244, 201, 93, 0.9)";
+    ctx.shadowBlur=18+motion.pulse*8;
+  }
+  ctx.fillStyle="#f0d85a";
   ctx.beginPath();
   ctx.arc(x, y, 21, 0, Math.PI*2);
   ctx.fill();
-  if(mobilized||contrast){
-    ctx.shadowColor="rgba(244, 201, 93, 0.85)";
-    ctx.shadowBlur=(mobilized?18:10)+motion.pulse*8;
-  }
-  if(mobilized){
-    ctx.fillStyle="#c94b4b";
-    ctx.beginPath();
-    ctx.arc(x, y, 13+motion.pulse*2, 0, Math.PI*2);
-    ctx.fill();
-  }
   ctx.shadowBlur=0;
-  ctx.strokeStyle=mobilized?(contrast?"rgba(255, 222, 100, 0.78)":"rgba(118, 32, 32, 0.48)"):"rgba(157, 119, 20, 0.82)";
-  ctx.lineWidth=mobilized&&contrast?3:2;
+  ctx.strokeStyle=mobilized?"rgba(255, 246, 170, 0.96)":"rgba(157, 119, 20, 0.82)";
+  ctx.lineWidth=mobilized?4:2;
   ctx.stroke();
   ctx.restore();
 }
@@ -3882,7 +3875,7 @@ function drawHighlights(motion){
   ctx.shadowColor="rgba(80, 45, 10, 0.46)";
   ctx.shadowBlur=5;
   ctx.setLineDash([8, 8+motion.pulse*8]);
-zones.filter((zone)=>ids.includes(zone.id)).forEach((zone)=>{
+zones.filter((zone)=>ids.includes(zone.id)&&(zone.type!=="parathyroid"||state.completed.has(zone.id))).forEach((zone)=>{
   if(zone.path){
     drawPath(zone.path, "rgba(80, 45, 10, 0.58)", 8, [8, 8]);
     drawPath(zone.path, guideColor, 5, [8, 8]);
