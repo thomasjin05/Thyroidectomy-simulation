@@ -461,7 +461,7 @@ canvas {
   }
   .stage-card {
     display: grid;
-    grid-template-columns: minmax(210px, auto)minmax(0, 1fr);
+    grid-template-columns: minmax(210px, auto) minmax(0, 1fr);
     align-items: center;
     gap: 12px;
     min-height: 38px;

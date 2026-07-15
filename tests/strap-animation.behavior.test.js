@@ -161,6 +161,43 @@ assert.deepEqual(intendedHits, {
   nodeClearance: "pretrachealNodes"
 }, "the current step's intended target should win over overlapping trachea or nerve zones");
 
+const workflowTargets = vm.runInContext(`(() => {
+  resetSimulation();
+  state.completed.add("strap");
+  state.stage = 9;
+  const berry = targetZoneIds();
+  state.removed = true;
+  state.tool = "inspect";
+  const removedLandmark = hitZone({ x: 646, y: 370 })?.id || null;
+  state.stage = 13;
+  state.bleeding = 0;
+  const dryHemostasis = targetZoneIds("hemostasis");
+  advance("nodeClearance");
+  state.tool = "cautery";
+  return {
+    berry,
+    removedLandmark,
+    dryHemostasis,
+    bleeding: state.bleeding,
+    wetHemostasis: targetZoneIds(),
+    bleedAllowed: isCurrentStepAction(zones.find((zone) => zone.id === "bleed1")),
+    vesselAllowed: isCurrentStepAction(zones.find((zone) => zone.id === "rightMidVein")),
+    isthmusTools: allowedToolIdsForTarget("isthmus"),
+    strapInstruction: stages.find((stage) => stage.target === "strap").instruction,
+    hemostasisInstruction: stages.find((stage) => stage.target === "hemostasis").instruction
+  };
+})()`, sandbox);
+assert.deepEqual(workflowTargets.berry, ["berryLigament"], "only Berry ligament should be guided during its dissection step");
+assert.notEqual(workflowTargets.removedLandmark, "berryLigament", "hidden posterior landmarks should not remain clickable after specimen removal");
+assert.deepEqual(workflowTargets.dryHemostasis, [], "a dry field should not expose a phantom bleeding target");
+assert.equal(workflowTargets.bleeding, 1, "central-node clearance should reveal one bleeding vessel stump");
+assert.deepEqual(workflowTargets.wetHemostasis, ["bleed1"], "final hemostasis should guide only the visible bleeding stump");
+assert.equal(workflowTargets.bleedAllowed, true, "the bleeding stump should accept an approved hemostasis tool");
+assert.equal(workflowTargets.vesselAllowed, false, "nonbleeding vessel ends should not bypass the required ablation");
+assert.deepEqual(workflowTargets.isthmusTools, ["harmonic", "advancedBipolar"], "isthmus division should allow energy tools only");
+assert.match(workflowTargets.strapInstruction, /Advanced Bipolar/, "strap instructions should name every allowed energy device");
+assert.match(workflowTargets.hemostasisInstruction, /Harmonic Focus/, "hemostasis instructions should name every allowed energy device");
+
 const focusStepClick = vm.runInContext(`(() => {
   resetSimulation();
   state.stage = 3;
@@ -281,13 +318,18 @@ assert(parathyroidRenderer.includes('):"#f0d85a"'), "unmobilized parathyroids sh
 assert(parathyroidRenderer.includes("#c94b4b"), "mobilized parathyroids should develop a red center");
 const highlightRenderer = source.slice(source.indexOf("function drawHighlights"), source.indexOf("function drawTeachingOverlay"));
 assert(highlightRenderer.includes("zones.filter((zone)=>ids.includes(zone.id)).forEach"), "parathyroid target guides should remain visible before dissection");
-assert(source.includes("parathyroid glands stand out in red"), "English nanocarbon guidance should describe the red contrast");
-assert(source.includes("甲状旁腺以红色对比显示"), "Chinese nanocarbon guidance should describe the red contrast");
+const nanocarbonGuidance = vm.runInContext(`({
+  en: [TX.en[300], TX.en[304]].join(" "),
+  zh: [TX.zh[300], TX.zh[304]].join(" ")
+})`, sandbox);
+assert.match(nanocarbonGuidance.en, /remain yellow.*red/s, "English guidance should describe yellow-to-red mobilization without changing behavior");
+assert.match(nanocarbonGuidance.zh, /保持黄色.*红色/s, "Chinese guidance should describe yellow-to-red mobilization without changing behavior");
 assert(source.includes("Math.sin(progress*Math.PI*2)*0.16"), "blunt dissection should use a controlled, limited twist");
 assert(source.includes("if(activation>0&&!harmonic)"), "HARMONIC activation should not render electrical sparks");
 assert(source.includes("function drawBluntSeparation"), "blunt dissection should animate tissue separation without guide lines");
 assert(!css.includes(".stage-card p: last-child"), "the desktop objective selector should be valid");
 assert(css.includes(".stage-card p:last-child"), "the desktop objective alignment rule should remain present");
+assert(/grid-template-columns:\s*minmax\(210px,\s*auto\)\s+minmax\(0,\s*1fr\)/.test(css), "the desktop objective grid should retain two valid columns");
 assert(css.includes("prefers-reduced-motion"), "the UI should provide a reduced-motion mode");
 assert(!source.includes("function phase()"), "unused phase helper should be removed");
 assert(!/if\(zone\.id==="flapPlane"\)\{\s*const traction=state\.settings\.traction;/.test(source), "unused flap traction variable should be removed");
@@ -337,6 +379,20 @@ const actionProgress = vm.runInContext(`(() => {
 })()`, sandbox);
 assert.equal(actionProgress.linear, 0.5, "energy cut passes should be timed from linear elapsed time");
 assert.equal(actionProgress.eased, 0.5, "visual motion should remain eased independently");
+
+now = 2100;
+const heatDuringAction = vm.runInContext(`(() => {
+  prefersReducedMotion = false;
+  resetSimulation();
+  state.heat = 3;
+  state.lastFrame = 2050;
+  state.action = { tool: "harmonic", targetId: "rightMidVein", startedAt: 2000, duration: 2500 };
+  animationLoop(2100);
+  const heat = state.heat;
+  state.action = null;
+  return heat;
+})()`, sandbox);
+assert.equal(heatDuringAction, 3, "animation duration should not provide free thermal cooldown unavailable to reduced-motion users");
 
 now = 1750;
 const forcepsRemoval = vm.runInContext(`(() => {
@@ -509,6 +565,32 @@ const cooledHeat = vm.runInContext(`(() => {
 })()`, sandbox);
 assert(cooledHeat < 5, "reduced motion should cool accumulated heat before the next action");
 vm.runInContext("prefersReducedMotion = false", sandbox);
+
+const hemostasisResults = vm.runInContext(`(() => {
+  const previous = prefersReducedMotion;
+  prefersReducedMotion = true;
+  const results = ["cautery", "harmonic", "advancedBipolar"].map((tool) => {
+    resetSimulation();
+    state.stage = 13;
+    advance("nodeClearance");
+    state.tool = tool;
+    const point = { x: 742, y: 340 };
+    onAction(hitZone(point), point);
+    return {
+      tool,
+      stage: state.stage,
+      bleeding: state.bleeding,
+      dryMessage: [...feedbackLog.children].some((entry) => entry.textContent === tr(215))
+    };
+  });
+  prefersReducedMotion = previous;
+  return results;
+})()`, sandbox);
+hemostasisResults.forEach(({ tool, stage, bleeding, dryMessage }) => {
+  assert.equal(stage, 15, `${tool} should complete final hemostasis at the bleeding stump`);
+  assert.equal(bleeding, 0, `${tool} should ablate the required bleeding point`);
+  assert.equal(dryMessage, true, `${tool} should confirm that the field is dry`);
+});
 
 vm.runInContext("resetSimulation()", sandbox);
 act("scalpel", "incision", 540, 560);
