@@ -23,21 +23,25 @@ The anatomy, positions, proportions, and operative sequence are schematic. Real 
 
 ## Files
 
-The simulation uses one shared bilingual app with an in-page language switch:
+The simulation is a static bilingual web app with this required layout:
 
 ```text
 index.html
 app.js
 styles.css
+assets/
+  instruments/
 ```
 
-Keep these three files in the same folder. `index.html` loads the shared bilingual JavaScript file and stylesheet. There is no separate Chinese HTML or JavaScript file in this optimized version.
+Keep this folder structure intact so the instrument images load correctly. `index.html` loads the shared bilingual JavaScript, stylesheet, and assets. There is no separate Chinese HTML or JavaScript file.
 
 ## How To Run
 
+No installation or build step is required.
+
 ### Option 1: Open Directly
 
-After downloading the project, extract the ZIP first. Then open this file in a modern browser:
+Download the complete project ZIP and extract it without changing the folder structure. Then open this file in a modern browser:
 
 ```text
 index.html
@@ -90,7 +94,7 @@ If the simulation shows only labels or unstyled text, the browser probably canno
 Check that:
 
 - The ZIP has been extracted.
-- `index.html`, `app.js`, and `styles.css` are in the same folder.
+- `index.html`, `app.js`, `styles.css`, and the `assets` folder remain in the downloaded project folder.
 - You are opening `index.html`, not looking for `index.zh.html` or opening `app.js` directly.
 - The files were not renamed to `app.js.txt` or `styles.css.txt`.
 - The page is opened in Chrome, Edge, Firefox, or Safari.
