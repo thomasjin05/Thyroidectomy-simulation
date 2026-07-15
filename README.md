@@ -37,7 +37,7 @@ Keep this folder structure intact so the instrument images load correctly. `inde
 
 ## How To Run
 
-No installation or build step is required.
+No installation or build step is required. To run locally, follow the steps below. 
 
 ### Option 1: Open Directly
 
