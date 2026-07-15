@@ -99,7 +99,7 @@ const TX={
     "Clear Superficial Fat and Raise Flaps",
     "Select Monopolar Hook and click once on the yellow highlighted superficial fat/flap plane. The hook clears this layer so the strap muscles and thyroid field become easier to see.",
     "Open the Strap Muscle Midline",
-    "Use Harmonic Focus in the strap muscle midline window for short, controlled energy-assisted separation. Retractors remain available as backup.",
+    "Use Harmonic Focus or Advanced Bipolar in the strap muscle midline window for short, controlled energy-assisted separation. Retractors remain available as backup.",
     "Divide the Middle Thyroid Vein",
     "Use Harmonic Focus or Advanced Bipolar on the middle thyroid vein. The clip applier remains available for a traditional cold-instrument approach.",
     "Protect the EBSLN and Superior Pole",
@@ -121,7 +121,7 @@ const TX={
     "Seal and Clear Central Nodes",
     "Use Harmonic Focus or Advanced Bipolar on each mobilized node packet to control small lymphovascular pedicles and complete ipsilateral central compartment clearance.",
     "Final Hemostasis",
-    "Use Bipolar Cautery or Advanced Bipolar only on bleeding points or vessel ends. Confirm the thyroid bed is dry before closure.",
+    "Use Bipolar Cautery, Harmonic Focus, or Advanced Bipolar on the highlighted bleeding vessel stump. Confirm the thyroid bed is dry before closure.",
     "Layered Closure",
     "After hemostasis is complete, use Suture at the incision. This simplified model closes strap muscle, platysma, and skin layers.",
     "Basic motion matters: the trachea moves subtly with respiration, and the thyroid moves with it because it is attached to the airway.",
@@ -340,11 +340,11 @@ const TX={
     "Nanocarbon",
     "Apply carbon nanoparticle contrast",
     "Contrast",
-    "Apply nanocarbon to the exposed thyroid tissue/lymphatic field. This teaching model darkens the thyroid/lymphatic field so the parathyroid glands stand out in red before dissection.",
+    "Apply nanocarbon to the exposed thyroid tissue/lymphatic field. This teaching model darkens that field while the parathyroid glands remain yellow before mobilization and develop a red center afterward.",
     "Apply Nanocarbon Contrast",
     "Use Nanocarbon on the exposed right thyroid lobe before dissecting the parathyroids. Real carbon nanoparticles stain lymphatic or thyroid-draining tissue black and help protect parathyroids by contrast.",
     "Carbon nanoparticle contrast helps identify lymph nodes and protect parathyroids by contrast. Do not apply it directly onto a parathyroid gland.",
-    "Nanocarbon applied. The thyroid/lymphatic field now darkens while the parathyroids remain red by contrast.",
+    "Nanocarbon applied. The thyroid/lymphatic field now darkens while the parathyroids remain yellow until mobilized, when their centers are shown in red.",
     "Do not inject or paint nanocarbon directly onto a parathyroid gland. Apply it to thyroid tissue or the lymphatic field.",
     "Apply nanocarbon contrast before dissecting the parathyroids.",
     "Apply nanocarbon here.",
@@ -413,7 +413,7 @@ const TX={
     "清理浅层脂肪并掀起皮瓣",
     "选择“单极电钩”，在高亮的浅层脂肪/皮瓣层面点击一次。清理这一层后，带状肌和甲状腺术野会更清楚。",
     "打开颈前带状肌正中间隙",
-    "在带状肌正中间隙使用“超声刀”，短时、可控地分开无血管层面。必要时可用拉钩辅助显露。",
+    "在带状肌正中间隙使用“超声刀”或“高级双极”，短时、可控地分开无血管层面。必要时可用拉钩辅助显露。",
     "处理甲状腺中静脉",
     "在甲状腺中静脉处使用“超声刀”或“高级双极”。如果走传统冷器械路线，也可以用施夹器。",
     "保护喉上神经外支并处理上极",
@@ -435,7 +435,7 @@ const TX={
     "封闭并清扫中央区淋巴结",
     "对每个已游离的淋巴结组织包块使用“超声刀”或“高级双极”，控制细小淋巴血管蒂，完成同侧中央区清扫。",
     "最终检查止血",
-    "只在出血点或血管断端使用“双极电凝”或“高级双极”。关闭前要确认甲状腺床是干的。",
+    "在高亮的出血血管断端使用“双极电凝”“超声刀”或“高级双极”。关闭前要确认甲状腺床是干的。",
     "分层关闭切口",
     "止血完成后，在切口处使用“缝合”。本简化模型按带状肌、颈阔肌、皮肤分层关闭。",
     "注意基础动态：气管会随呼吸轻微移动，甲状腺附着在气道上，也会跟着一起动。",
@@ -654,11 +654,11 @@ const TX={
     "纳米碳",
     "应用碳纳米颗粒示踪",
     "示踪",
-    "把纳米碳用于已显露的甲状腺组织/淋巴引流区域。本教学模型会让甲状腺和淋巴引流区域变暗，让甲状旁腺以红色对比显示，便于分离前辨认。",
+    "把纳米碳用于已显露的甲状腺组织/淋巴引流区域。本教学模型会让该区域变暗；甲状旁腺在游离前保持黄色，游离后中央显示为红色。",
     "应用纳米碳示踪",
     "在分离甲状旁腺前，先用“纳米碳”点击已显露的右侧甲状腺叶。真实手术中，碳纳米颗粒主要使淋巴或甲状腺引流组织变黑，从而通过对比保护甲状旁腺。",
     "碳纳米颗粒可帮助识别淋巴结，并通过对比帮助保护甲状旁腺。不要直接涂在甲状旁腺上。",
-    "纳米碳已应用。甲状腺/淋巴引流区域变暗，甲状旁腺保持红色，形成对比。",
+    "纳米碳已应用。甲状腺/淋巴引流区域变暗；甲状旁腺在游离前保持黄色，游离后中央显示为红色。",
     "不要把纳米碳直接注入或涂到甲状旁腺上。应作用于甲状腺组织或淋巴引流区域。",
     "先应用纳米碳示踪，再分离甲状旁腺。",
     "这里应用纳米碳。",
@@ -2025,7 +2025,8 @@ function hitZone(point){
   const matches=[
     ...zones
   ].reverse().filter((zone)=>{
-    if(state.removed&&(zone.id==="rightThyroid"||zone.id==="nodule"))return false;
+    if(state.removed&&["rightThyroid", "nodule", "berryLigament", "zuckerkandl"].includes(zone.id))return false;
+    if(zone.type==="bleed"&&state.bleeding===0)return false;
     if(zone.type==="nerve"&&!state.completed.has("strap"))return false;
     return contains(zone, point.x, point.y);
   });
@@ -2089,9 +2090,7 @@ function targetZoneIds(target=stages[state.stage].target){
       "rightInfVein"
     ],
     berry: [
-      "berryLigament",
-      "zuckerkandl",
-      "rightRLN"
+      "berryLigament"
     ],
     isthmus: [
       "isthmus"
@@ -2110,14 +2109,7 @@ function targetZoneIds(target=stages[state.stage].target){
       "pretrachealNodes",
       "rightParatrachealNodes"
     ],
-    hemostasis: [
-      "bleed1",
-      "rightSupArt",
-      "rightInfArt",
-      "rightSupVein",
-      "rightMidVein",
-      "rightInfVein"
-    ],
+    hemostasis: state.bleeding>0?["bleed1"]: [],
     close: [
       "incision"
     ]
@@ -2138,7 +2130,7 @@ const stepTools={
   rln: ["nerveProbe"],
   inferiorPole: ["clip", "harmonic", "advancedBipolar"],
   berry: ["dissector"],
-  isthmus: ["scalpel", "dissector", "harmonic", "advancedBipolar"],
+  isthmus: ["harmonic", "advancedBipolar"],
   remove: ["forceps"],
   centralNodes: ["dissector"],
   nodeClearance: ["harmonic", "advancedBipolar"],
@@ -2293,6 +2285,7 @@ function advance(target){
     return false;
   }
   state.completed.add(target);
+  if(target==="nodeClearance")state.bleeding=Math.max(1, state.bleeding);
   state.stepFlashAt=performance.now();
   state.stepFlashTarget=current.target;
   if(state.stage<stages.length-1){
@@ -2747,8 +2740,10 @@ if(state.tool==="cautery"){
     setting: "mode"
   }, state.settings.power]
 });
-if(stages[state.stage].target==="hemostasis"&&state.bleeding===0)advance("hemostasis");
-if(stages[state.stage].target==="hemostasis"&&state.bleeding===0)addLog(tr(215), "success");
+if(stages[state.stage].target==="hemostasis"&&state.bleeding===0){
+  advance("hemostasis");
+  addLog(tr(215), "success", {kind: "tr", index: 215});
+}
 }
 else if(zone.type==="nerve"||zone.type==="parathyroid"){
   penalize(12+state.settings.power, tr(216));
@@ -2924,7 +2919,10 @@ if(zone.type==="bleed"){
     trIndex: isHarmonic?219: 220
   }]
 });
-if(stages[state.stage].target==="hemostasis"&&state.bleeding===0)advance("hemostasis");
+if(stages[state.stage].target==="hemostasis"&&state.bleeding===0){
+  advance("hemostasis");
+  addLog(tr(215), "success", {kind: "tr", index: 215});
+}
 return;
 }
 addLog(fmt(237, [name]), "warning", {
@@ -4487,7 +4485,7 @@ addLog(tr(296), "info", {
 function animationLoop(now){
   const dt=Math.max(0, Math.min(0.05, (now-state.lastFrame)/1000||0));
   state.lastFrame=now;
-  state.heat=Math.max(0, state.heat-dt*0.55);
+  if(!state.action)state.heat=Math.max(0, state.heat-dt*0.55);
   if(state.action&&now-state.action.startedAt>=state.action.duration)finishAction();
   draw();
   if(!prefersReducedMotion)requestAnimationFrame(animationLoop);
