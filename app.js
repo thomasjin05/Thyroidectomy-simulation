@@ -2218,12 +2218,15 @@ function selectTool(id){
 }
 function renderTools(){
   toolGrid.innerHTML="";
+  const allowedToolIds=allowedToolIdsForTarget();
   tools.forEach((tool)=>{
     const button=document.createElement("button");
-    button.className="tool-button";
+    const allowed=allowedToolIds.includes(tool.id);
+    button.className=`tool-button${allowed?" is-step-allowed":""}`;
     button.type="button";
     button.setAttribute("aria-pressed", String(state.tool===tool.id));
-    button.title=tool.use;
+    button.setAttribute("aria-label", allowed?`${tool.name} — ${currentLang==="zh"?"当前步骤可用":"available for this step"}`:tool.name);
+    button.title=allowed?(currentLang==="zh"?`当前步骤可用：${tool.use}`:`Available for this step: ${tool.use}`):tool.use;
     button.innerHTML=`
       <span class="tool-icon"><span>${tool.icon}</span><img src="${toolAsset(tool.id)}" alt="" aria-hidden="true"></span>
       <span class="tool-name">${tool.name}</span>
@@ -2310,6 +2313,7 @@ function advance(target){
       kind: "note", target
     });
   }
+  renderTools();
   renderStatus();
   renderCompletionScreen();
   return true;
