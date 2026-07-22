@@ -102,8 +102,8 @@ const TX={
     "Use Harmonic Focus or Advanced Bipolar in the strap muscle midline window for short, controlled energy-assisted separation. Retractors remain available as backup.",
     "Divide the Middle Thyroid Vein",
     "Use Harmonic Focus or Advanced Bipolar on the middle thyroid vein. The clip applier remains available for a traditional cold-instrument approach.",
-    "Protect the EBSLN and Superior Pole",
-    "First use the Nerve Probe on the purple dashed EBSLN. Then use Harmonic Focus or Advanced Bipolar on the two capsular dashed vessel targets; clips are available as backup.",
+    "Identify the EBSLN",
+    "Use the Nerve Probe on the purple dashed EBSLN above the superior pole. Confirm the nerve before controlling any nearby vessels.",
     "Identify the Parathyroids",
     "Use the Dissector on the right superior and inferior parathyroids. Leave them in the thyroid bed with their blood supply.",
     "Identify the Recurrent Laryngeal Nerve",
@@ -351,7 +351,9 @@ const TX={
     "Click the thyroid lobe, not the gland.",
     "Wrong step. Finish \"{0}\" first: use {1} on the highlighted target.",
     "Opaque textured skin layer",
-    "Yellow superficial fat layer"
+    "Yellow superficial fat layer",
+    "Control the Superior Pole Vessels",
+    "After identifying the EBSLN, use Clip Applier, Harmonic Focus, or Advanced Bipolar on the two capsular dashed vessel targets. Control both the artery and vein close to the thyroid capsule."
   ],
   "zh": [
     "观察",
@@ -416,8 +418,8 @@ const TX={
     "在带状肌正中间隙使用“超声刀”或“高级双极”，短时、可控地分开无血管层面。必要时可用拉钩辅助显露。",
     "处理甲状腺中静脉",
     "在甲状腺中静脉处使用“超声刀”或“高级双极”。如果走传统冷器械路线，也可以用施夹器。",
-    "保护喉上神经外支并处理上极",
-    "先用“神经探针”确认紫色虚线标出的喉上神经外支。随后在两个被膜旁虚线圈处用“超声刀”或“高级双极”处理上极血管；施夹器可作为备用。",
+    "确认喉上神经外支",
+    "使用“神经探针”点击上极上方紫色虚线标出的喉上神经外支。确认神经后，再处理附近血管。",
     "识别并保留甲状旁腺",
     "用“钝性分离器”点击右上、右下甲状旁腺。目标是原位保留，同时尽量保住血供。",
     "识别喉返神经",
@@ -665,7 +667,9 @@ const TX={
     "点击甲状腺叶，不要点击腺体。",
     "步骤不对。请先完成“{0}”：选择{1}，点击高亮目标。",
     "皮肤层",
-    "浅层脂肪层"
+    "浅层脂肪层",
+    "处理上极血管",
+    "确认喉上神经外支后，使用“施夹器”“超声刀”或“高级双极”处理两个被膜旁虚线血管目标。靠近甲状腺被膜分别控制动脉和静脉。"
   ]
 };
 const UI={
@@ -997,6 +1001,10 @@ const stageText=[
     63
   ],
   [
+    312,
+    313
+  ],
+  [
     301,
     302
   ],
@@ -1054,6 +1062,7 @@ const noteText={
   flaps: 86,
   strap: 87,
   middleVein: 88,
+  ebsln: 145,
   superiorPole: 89,
   nanocarbon: 303,
   parathyroids: 90,
@@ -1498,6 +1507,11 @@ const stages=[
   {
     title: tr(62),
     instruction: tr(63),
+    target: "ebsln"
+  },
+  {
+    title: tr(312),
+    instruction: tr(313),
     target: "superiorPole"
   },
   {
@@ -1567,6 +1581,7 @@ const teachingNotes={
   flaps: tr(86),
   strap: tr(87),
   middleVein: tr(88),
+  ebsln: tr(145),
   superiorPole: tr(89),
   nanocarbon: tr(303),
   parathyroids: tr(90),
@@ -2045,20 +2060,10 @@ function hitZone(point){
 }
 function targetZoneIds(target=stages[state.stage].target){
   if(target==="superiorPole"){
-    if(!state.completed.has("rightEBSLN"))return[
-      "rightEBSLN"
-    ];
-    if(!state.vesselsClipped.has("rightSupArt"))return[
-      "rightSupArt"
-    ];
-    if(!state.vesselsClipped.has("rightSupVein"))return[
-      "rightSupVein"
-    ];
     return[
-      "rightEBSLN",
       "rightSupArt",
       "rightSupVein"
-    ];
+    ].filter((id)=>!state.vesselsClipped.has(id));
   }
   return{
     incision: [
@@ -2072,6 +2077,9 @@ function targetZoneIds(target=stages[state.stage].target){
     ],
     middleVein: [
       "rightMidVein"
+    ],
+    ebsln: [
+      "rightEBSLN"
     ],
     nanocarbon: [
       "rightThyroid",
@@ -2124,7 +2132,8 @@ const stepTools={
   flaps: ["monopolar"],
   strap: ["retractor", "harmonic", "advancedBipolar"],
   middleVein: ["clip", "harmonic", "advancedBipolar"],
-  superiorPole: ["nerveProbe", "clip", "harmonic", "advancedBipolar"],
+  ebsln: ["nerveProbe"],
+  superiorPole: ["clip", "harmonic", "advancedBipolar"],
   nanocarbon: ["nanocarbon"],
   parathyroids: ["dissector"],
   rln: ["nerveProbe"],
@@ -2218,12 +2227,15 @@ function selectTool(id){
 }
 function renderTools(){
   toolGrid.innerHTML="";
+  const allowedToolIds=allowedToolIdsForTarget();
   tools.forEach((tool)=>{
     const button=document.createElement("button");
-    button.className="tool-button";
+    const allowed=allowedToolIds.includes(tool.id);
+    button.className=`tool-button${allowed?" is-step-allowed":""}`;
     button.type="button";
     button.setAttribute("aria-pressed", String(state.tool===tool.id));
-    button.title=tool.use;
+    button.setAttribute("aria-label", allowed?`${tool.name} — ${currentLang==="zh"?"当前步骤可用":"available for this step"}`:tool.name);
+    button.title=allowed?(currentLang==="zh"?`当前步骤可用：${tool.use}`:`Available for this step: ${tool.use}`):tool.use;
     button.innerHTML=`
       <span class="tool-icon"><span>${tool.icon}</span><img src="${toolAsset(tool.id)}" alt="" aria-hidden="true"></span>
       <span class="tool-name">${tool.name}</span>
@@ -2310,6 +2322,7 @@ function advance(target){
       kind: "note", target
     });
   }
+  renderTools();
   renderStatus();
   renderCompletionScreen();
   return true;
@@ -2415,16 +2428,6 @@ function onAction(zone, point){
     draw();
     return;
   }
-  if(stages[state.stage].target==="superiorPole"){
-    if(!state.completed.has("rightEBSLN")&&state.tool!=="nerveProbe"){
-      addLog(tr(178), "warning");
-      return;
-    }
-    if(state.completed.has("rightEBSLN")&&!["clip", "harmonic", "advancedBipolar"].includes(state.tool)&&!["rightSupArt", "rightSupVein"].every((id)=>state.vesselsClipped.has(id))){
-      addLog(tr(179), "warning");
-      return;
-    }
-  }
   if(!isCurrentStepAction(zone)){
     logStepGate();
     renderStatus();
@@ -2490,21 +2493,6 @@ function applyAction(zone, point){
     });
     draw();
     return;
-  }
-  if(stages[state.stage].target==="superiorPole"){
-    if(!state.completed.has("rightEBSLN")&&state.tool!=="nerveProbe"){
-      addLog(tr(178), "warning");
-      return;
-    }
-    const superiorEnergyTools=[
-      "clip",
-      "harmonic",
-      "advancedBipolar"
-    ];
-    if(state.completed.has("rightEBSLN")&&!superiorEnergyTools.includes(state.tool)&&!["rightSupArt", "rightSupVein"].every((id)=>state.vesselsClipped.has(id))){
-      addLog(tr(179), "warning");
-      return;
-    }
   }
   if(!isCurrentStepAction(zone)){
     logStepGate();
@@ -2648,7 +2636,7 @@ else{
 }
 if(state.tool==="nerveProbe"){
   if(zone.type==="nerve"){
-    if(stages[state.stage].target==="superiorPole"&&zone.id!=="rightEBSLN"){
+    if(stages[state.stage].target==="ebsln"&&zone.id!=="rightEBSLN"){
     addLog(tr(202), "warning");
     renderStatus();
     draw();
@@ -2660,7 +2648,7 @@ if(state.tool==="nerveProbe"){
     zoneId: zone.id
   }, state.settings.sensitivity]
 });
-if(zone.id==="rightEBSLN"&&["rightSupArt", "rightSupVein"].every((id)=>state.vesselsClipped.has(id)))advance("superiorPole");
+if(zone.id==="rightEBSLN")advance("ebsln");
 if(zone.id==="rightRLN")advance("rln");
 }
 else{
@@ -3915,12 +3903,13 @@ function drawTeachingOverlay(motion){
       tr(267),
       tr(268)
     ],
-    superiorPole: state.completed.has("rightEBSLN")?[
-      tr(269),
-      tr(270)
-    ]: [
+    ebsln: [
       tr(271),
       tr(272)
+    ],
+    superiorPole: [
+      tr(269),
+      tr(270)
     ],
     nanocarbon: [
       tr(307),

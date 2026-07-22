@@ -144,6 +144,19 @@ h2 {
   background: #e9f7fa;
   box-shadow: inset 4px 0 0 var(--accent);
 }
+.tool-button.is-step-allowed {
+  padding: 4px 5px;
+  border: 2px dashed var(--ok);
+  background: #f1fbf5;
+}
+.tool-button.is-step-allowed:hover,
+.tool-button.is-step-allowed:focus-visible {
+  background: #e3f5ea;
+}
+.tool-button.is-step-allowed[aria-pressed="true"] {
+  background: #dff3e7;
+  box-shadow: inset 4px 0 0 var(--accent), 0 0 0 2px rgba(40, 122, 75, 0.14);
+}
 .tool-icon {
   display: grid;
   place-items: center;
@@ -276,13 +289,23 @@ h2 {
   gap: 5px;
 }
 .stage-card {
+  display: grid;
+  align-items: start;
+  gap: 7px;
   min-height: 0;
-  padding: 6px 10px;
+  padding: 10px 12px;
+}
+.stage-card>div {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 0;
 }
 .stage-card h2 {
   margin-bottom: 0;
-  font-size: 0.92rem;
-  line-height: 1.15;
+  font-size: 1.08rem;
+  line-height: 1.2;
 }
 .step-badge {
   flex: 0 0 auto;
@@ -296,11 +319,11 @@ h2 {
   white-space: nowrap;
 }
 .stage-card p:last-child {
-  max-width: min(48vw, 680px);
+  max-width: none;
   margin-bottom: 0;
   color: var(--muted);
-  line-height: 1.22;
-  font-size: 0.78rem;
+  line-height: 1.35;
+  font-size: 0.94rem;
 }
 .instruction-tool {
   color: var(--accent-dark);
@@ -460,17 +483,11 @@ canvas {
     grid-template-rows: auto minmax(0, 1fr);
   }
   .stage-card {
-    display: grid;
-    grid-template-columns: minmax(210px, auto) minmax(0, 1fr);
-    align-items: center;
-    gap: 12px;
-    min-height: 38px;
+    grid-template-columns: 1fr;
+    min-height: 74px;
   }
   .stage-card>div {
-    display: flex;
     align-items: baseline;
-    gap: 8px;
-    min-width: 0;
   }
   .stage-card .eyebrow {
     flex: none;
@@ -478,14 +495,13 @@ canvas {
     font-size: 0.66rem;
   }
   .stage-card h2 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow: visible;
+    white-space: normal;
   }
   .stage-card p:last-child {
-    justify-self: end;
+    justify-self: stretch;
     max-width: 100%;
-    text-align: right;
+    text-align: left;
   }
   .canvas-shell {
     align-self: start;
@@ -510,9 +526,12 @@ canvas {
   .tool-grid {
     grid-template-columns: 1fr;
   }
-  .topbar, .stage-card {
+  .topbar {
     align-items: stretch;
     flex-direction: column;
+  }
+  .stage-card {
+    align-items: stretch;
   }
   .status-strip, .workspace {
     grid-template-columns: 1fr;
